@@ -9,6 +9,8 @@ import javax.swing.text.html.ImageView;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class viewController {
@@ -30,7 +32,7 @@ public class viewController {
         private TextField txtTelefono; // Value injected by FXMLLoader
 
         @FXML // fx:id="colFechaNacimieto"
-        private TableColumn<?, ?> colFechaNacimieto; // Value injected by FXMLLoader
+        private TableColumn<?, LocalDate> colFechaNacimieto; // Value injected by FXMLLoader
 
         @FXML // fx:id="txtEmail"
         private TextField txtEmail; // Value injected by FXMLLoader
@@ -42,7 +44,7 @@ public class viewController {
         private TextField txtApellido; // Value injected by FXMLLoader
 
         @FXML // fx:id="colNombre"
-        private TableColumn<?, ?> colNombre; // Value injected by FXMLLoader
+        private TableColumn<?, String > colNombre; // Value injected by FXMLLoader
 
         @FXML // fx:id="dateNacimiento"
         private DatePicker dateNacimiento; // Value injected by FXMLLoader
@@ -51,10 +53,10 @@ public class viewController {
         private TableView<?> tablaDeContenido; // Value injected by FXMLLoader
 
         @FXML // fx:id="colTelefono"
-        private TableColumn<?, ?> colTelefono; // Value injected by FXMLLoader
+        private TableColumn<?, String > colTelefono; // Value injected by FXMLLoader
 
         @FXML // fx:id="colEmail"
-        private TableColumn<?, ?> colEmail; // Value injected by FXMLLoader
+        private TableColumn<?, String> colEmail; // Value injected by FXMLLoader
 
         @FXML
         void seleccionarFoto(ActionEvent event) {
