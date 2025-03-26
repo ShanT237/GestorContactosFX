@@ -11,11 +11,7 @@ public class GestorContactos {
         this.contactos = new ArrayList<>();
     }
 
-    /**
-     * Método para agregar un nuevo contacto a la lista.
-     * @param usuario Contacto a agregar
-     * @throws Exception Si el contacto ya existe
-     */
+
     public void agregar(Usuario usuario) throws Exception {
         Usuario usuarioExistente = buscarPorTelefono(usuario.getTelefono());
 
@@ -26,11 +22,6 @@ public class GestorContactos {
         }
     }
 
-    /**
-     * Método para eliminar un contacto de la lista.
-     * @param telefono Teléfono del contacto a eliminar
-     * @throws Exception Si el contacto no existe
-     */
     public void eliminar(String telefono) throws Exception {
         Usuario usuarioExistente = buscarPorTelefono(telefono);
 
@@ -41,11 +32,7 @@ public class GestorContactos {
         }
     }
 
-    /**
-     * Método para actualizar la información de un contacto existente.
-     * @param usuarioActualizado Usuario con los datos modificados
-     * @throws Exception Si el contacto no existe
-     */
+
     public void actualizar(Usuario usuarioActualizado) throws Exception {
         Usuario usuarioExistente = buscarPorTelefono(usuarioActualizado.getTelefono());
 
@@ -60,11 +47,7 @@ public class GestorContactos {
         }
     }
 
-    /**
-     * Método para obtener un contacto por su teléfono.
-     * @param telefono Teléfono del contacto a buscar
-     * @return Usuario encontrado o null si no existe
-     */
+
     public Usuario buscarPorTelefono(String telefono) {
         return contactos
                 .stream()
@@ -73,11 +56,7 @@ public class GestorContactos {
                 .orElse(null);
     }
 
-    /**
-     * Método para buscar contactos por nombre.
-     * @param nombre Nombre del contacto a buscar
-     * @return Lista de contactos con el nombre dado
-     */
+
     public List<Usuario> buscarPorNombre(String nombre) {
         List<Usuario> resultado = new ArrayList<>();
         for (Usuario u : contactos) {
@@ -88,18 +67,12 @@ public class GestorContactos {
         return resultado;
     }
 
-    /**
-     * Método para obtener todos los contactos.
-     * @return Lista de contactos
-     */
+
     public List<Usuario> getContactos() {
         return contactos;
     }
 
-    /**
-     * Método para obtener la cantidad de contactos registrados.
-     * @return Cantidad de contactos
-     */
+
     public int obtenerCantidadContactos() {
         return contactos.size();
     }
