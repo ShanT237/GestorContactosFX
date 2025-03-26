@@ -59,7 +59,6 @@
                 <TableColumn fx:id="colTelefono" prefWidth="75.0" text="Telefono " />
                 <TableColumn fx:id="colEmail" prefWidth="75.0" text="Email" />
                 <TableColumn fx:id="colFechaNacimieto" prefWidth="75.0" text="Fecha de Nacimiento " />
-            <TableColumn fx:id="colFoto" prefWidth="75.0" text="Foto" />
             </columns>
         </TableView>
     </children>
