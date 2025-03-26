@@ -1,9 +1,12 @@
 package co.edu.uniquindio.gestorcontactosfx.Model;
 
-import javafx.stage.FileChooser;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import javax.swing.*;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.time.LocalDate;
 
 public class Usuario {
@@ -12,10 +15,9 @@ public class Usuario {
     private String telefono;
     private String email;
     private LocalDate fechaNacimiento;
-    private JFileChooser fotoPerfil;
+    private ImageView fotoPerfil;  // Cambiado a ImageView para mostrar imágenes en JavaFX
 
-
-    public Usuario(JFileChooser fotoPerfil, LocalDate fechaNacimiento, String email, String telefono, String apellido, String nombre) {
+    public Usuario(ImageView fotoPerfil, LocalDate fechaNacimiento, String email, String telefono, String apellido, String nombre) {
         this.fotoPerfil = fotoPerfil;
         this.fechaNacimiento = fechaNacimiento;
         this.email = email;
@@ -64,29 +66,41 @@ public class Usuario {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public JFileChooser getFotoPerfil() {
+    public ImageView getFotoPerfil() {
         return fotoPerfil;
     }
 
-    public void setFotoPerfil(JFileChooser fotoPerfil) {
+    public void setFotoPerfil(ImageView fotoPerfil) {
         this.fotoPerfil = fotoPerfil;
     }
 
+    // Método para seleccionar una foto usando JFileChooser de Swing
     public void seleccionarFoto() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Imágenes", "*.jpg", "*.jpeg", "*.png"));
-        File file = fileChooser.showOpenDialog(null);
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Seleccionar Foto");
+        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Imágenes JPG, PNG, JPEG", "jpg", "jpeg", "png"));
 
-        if (file != null && file.isFile()) {
+        int resultado = fileChooser.showOpenDialog(null);
+
+        if (resultado == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+
+            // Verifica que el archivo seleccionado sea una imagen válida
             String fileName = file.getName().toLowerCase();
             if (fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") || fileName.endsWith(".png")) {
-                this.fotoPerfil.setSelectedFile(new File(fileName));
+                try {
+                    // Cargar la imagen usando el archivo seleccionado
+                    Image image = new Image(file.toURI().toString());  // Convierte el archivo a URI y luego a Image
+                    this.fotoPerfil = new ImageView(image);  // Asigna la imagen al atributo fotoPerfil
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Error al cargar la imagen.");
+                }
             } else {
-                System.out.println("Formato no permitido. Selecciona un archivo JPG, JPEG o PNG.");
+                JOptionPane.showMessageDialog(null, "Formato no permitido. Selecciona un archivo JPG, JPEG o PNG.");
             }
+        } else {
+            System.out.println("No se seleccionó ninguna imagen.");
         }
     }
-
-
-
 }

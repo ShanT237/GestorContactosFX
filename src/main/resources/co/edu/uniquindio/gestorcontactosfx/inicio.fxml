@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.image.*?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="457.0" prefWidth="794.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.gestorcontactosfx.Controller.InicioController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="533.0" prefWidth="928.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.gestorcontactosfx.Controller.InicioController">
     <children>
         <VBox prefHeight="400.0" prefWidth="291.0">
             <children>
@@ -24,7 +24,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints />
+                        <RowConstraints />
                     </rowConstraints>
                     <children>
                         <TextField fx:id="txtNombre" GridPane.columnIndex="1" />
@@ -52,13 +52,14 @@
                 </HBox>
             </children>
         </VBox>
-        <TableView fx:id="tablaDeContenido" prefHeight="457.0" prefWidth="459.0">
+        <TableView fx:id="tablaDeContenido" prefHeight="533.0" prefWidth="516.0">
             <columns>
                 <TableColumn fx:id="colNombre" prefWidth="75.0" text="Nombre" />
                 <TableColumn fx:id="colApellido" prefWidth="75.0" text="Apelldio " />
                 <TableColumn fx:id="colTelefono" prefWidth="75.0" text="Telefono " />
                 <TableColumn fx:id="colEmail" prefWidth="75.0" text="Email" />
                 <TableColumn fx:id="colFechaNacimieto" prefWidth="75.0" text="Fecha de Nacimiento " />
+                <TableColumn fx:id="colImagen" prefWidth="75.0" text="Imagen " />
             </columns>
         </TableView>
     </children>

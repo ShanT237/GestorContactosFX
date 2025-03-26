@@ -12,7 +12,7 @@ public class GestorContactos {
     }
 
 
-    public void agregar(Usuario usuario) throws Exception {
+    public void crearEstudiante(Usuario usuario) throws Exception {
         Usuario usuarioExistente = buscarPorTelefono(usuario.getTelefono());
 
         if (usuarioExistente != null) {
@@ -22,7 +22,7 @@ public class GestorContactos {
         }
     }
 
-    public void eliminar(String telefono) throws Exception {
+    public void eliminarEstudiante(String telefono) throws Exception {
         Usuario usuarioExistente = buscarPorTelefono(telefono);
 
         if (usuarioExistente == null) {
@@ -33,7 +33,7 @@ public class GestorContactos {
     }
 
 
-    public void actualizar(Usuario usuarioActualizado) throws Exception {
+    public void actualizarEstudiante(Usuario usuarioActualizado) throws Exception {
         Usuario usuarioExistente = buscarPorTelefono(usuarioActualizado.getTelefono());
 
         if (usuarioExistente != null) {
