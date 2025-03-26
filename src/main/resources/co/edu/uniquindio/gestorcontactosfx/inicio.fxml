@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="457.0" prefWidth="794.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.gestorcontactosfx.Controller.UsuarioController">
+    <children>
+        <VBox prefHeight="400.0" prefWidth="291.0">
+            <children>
+                <GridPane>
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints />
+                    </rowConstraints>
+                    <children>
+                        <TextField fx:id="txtNombre" GridPane.columnIndex="1" />
+                        <TextField fx:id="txtApellido" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="txtTelefono" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="txtEmail" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label text="Nombre " />
+                        <Label text="Apellido " GridPane.rowIndex="1" />
+                        <Label text="Telefono " GridPane.rowIndex="2" />
+                        <Label text="Email" GridPane.rowIndex="3" />
+                        <DatePicker fx:id="dateNacimiento" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label text="Fecha de Nacimiento " GridPane.rowIndex="4" />
+                        <!-- Botón para seleccionar la foto -->
+                        <Button onAction="#seleccionarFoto" text="Seleccionar Foto" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <!-- Imagen donde se mostrará la foto de perfil -->
+                        <ImageView fx:id="imgFotoPerfil" fitHeight="100" fitWidth="144.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                    </children>
+                </GridPane>
+                <HBox prefHeight="129.0" prefWidth="288.0">
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#crearEstudiante" text="Agregar " />
+                        <Button mnemonicParsing="false" onAction="#eliminarEstudiante" text="Eliminar " />
+                        <Button mnemonicParsing="false" onAction="#actualizarEstudiante" text="Actualizar " />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+        <TableView fx:id="tablaDeContenido" prefHeight="457.0" prefWidth="459.0">
+            <columns>
+                <TableColumn fx:id="colNombre" prefWidth="75.0" text="Nombre" />
+                <TableColumn fx:id="colApellido" prefWidth="75.0" text="Apelldio " />
+                <TableColumn fx:id="colTelefono" prefWidth="75.0" text="Telefono " />
+                <TableColumn fx:id="colEmail" prefWidth="75.0" text="Email" />
+                <TableColumn fx:id="colFechaNacimieto" prefWidth="75.0" text="Fecha de Nacimiento " />
+            <TableColumn fx:id="colFoto" prefWidth="75.0" text="Foto" />
+            </columns>
+        </TableView>
+    </children>
+</HBox>
