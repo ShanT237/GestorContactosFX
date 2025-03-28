@@ -3,6 +3,7 @@ package co.edu.uniquindio.gestorcontactosfx.Model;
 import java.util.ArrayList;
 import java.util.List;
 
+//Usarr
 public class GestorContactos {
 
     private List<Usuario> contactos;
