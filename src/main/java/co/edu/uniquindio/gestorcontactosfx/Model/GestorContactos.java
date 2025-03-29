@@ -1,15 +1,21 @@
 package co.edu.uniquindio.gestorcontactosfx.Model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.util.ArrayList;
 import java.util.List;
 
 //Usarr
 public class GestorContactos {
+    public void setContactos(ObservableList<Usuario> contactos) {
+        this.contactos = contactos;
+    }
 
-    private List<Usuario> contactos;
+    private ObservableList<Usuario> contactos;
 
     public GestorContactos() {
-        this.contactos = new ArrayList<>();
+        this.contactos = FXCollections.observableArrayList();
     }
 
 
@@ -34,20 +40,6 @@ public class GestorContactos {
     }
 
 
-    public void actualizarEstudiante(Usuario usuarioActualizado) throws Exception {
-        Usuario usuarioExistente = buscarPorTelefono(usuarioActualizado.getTelefono());
-
-        if (usuarioExistente != null) {
-            usuarioExistente.setNombre(usuarioActualizado.getNombre());
-            usuarioExistente.setApellido(usuarioActualizado.getApellido());
-            usuarioExistente.setEmail(usuarioActualizado.getEmail());
-            usuarioExistente.setFechaNacimiento(usuarioActualizado.getFechaNacimiento());
-            usuarioExistente.setFotoPerfil(usuarioActualizado.getFotoPerfil());
-        } else {
-            throw new Exception("No existe un contacto con el teléfono dado.");
-        }
-    }
-
 
     public Usuario buscarPorTelefono(String telefono) {
         return contactos
@@ -69,8 +61,8 @@ public class GestorContactos {
     }
 
 
-    public List<Usuario> getContactos() {
-        return contactos;
+    public ObservableList<Usuario> getContactos() {
+        return (ObservableList<Usuario>) contactos;
     }
 
 

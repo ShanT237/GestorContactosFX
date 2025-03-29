@@ -1,5 +1,6 @@
 package co.edu.uniquindio.gestorcontactosfx.Controller;
 
+import co.edu.uniquindio.gestorcontactosfx.Model.GestorContactos;
 import co.edu.uniquindio.gestorcontactosfx.Model.Usuario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,7 +9,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
-
 import javafx.event.ActionEvent;
 import java.io.File;
 import java.net.URL;
@@ -68,7 +68,7 @@ public class InicioController {
     @FXML
     private TableColumn<Usuario, String> colEmail;
 
-    private final ObservableList<Usuario> listaUsuarios = FXCollections.observableArrayList();
+    private final GestorContactos gestorContactos = new GestorContactos();
 
     @FXML
     public void seleccionarFoto(ActionEvent event) {
@@ -87,8 +87,11 @@ public class InicioController {
             }
         }
     }
+
+
+
     @FXML
-    public void crearEstudiante(ActionEvent event) {
+    public void crearEstudiante(ActionEvent event) throws Exception {
         if (!validarCampos()) {
             return;
         }
@@ -100,9 +103,16 @@ public class InicioController {
 
         String rutaImagen = (imgFotoPerfil.getImage() != null) ? imgFotoPerfil.getImage().getUrl() : null;
 
-        Usuario nuevoUsuario = new Usuario(rutaImagen, fechaNacimiento, email, telefono, apellido, nombre);
-        listaUsuarios.add(nuevoUsuario);
-        tablaDeContenido.setItems(listaUsuarios);
+        Usuario usuario = Usuario.builder()
+                .telefono(telefono)  // Si el teléfono es obligatorio, debe ir primero
+                .nombre(nombre)
+                .apellido(apellido)
+                .email(email)
+                .fechaNacimiento(fechaNacimiento)
+                .fotoPerfil(rutaImagen)
+                .build();
+        gestorContactos.crearEstudiante(usuario);
+        tablaDeContenido.setItems(gestorContactos.getContactos());
 
         limpiarCampos();
     }
@@ -111,7 +121,12 @@ public class InicioController {
     public void eliminarEstudiante(ActionEvent event) {
         Usuario seleccionado = tablaDeContenido.getSelectionModel().getSelectedItem();
         if (seleccionado != null) {
-            listaUsuarios.remove(seleccionado);
+            try {
+                gestorContactos.eliminarEstudiante(seleccionado.getTelefono());
+                tablaDeContenido.setItems(FXCollections.observableArrayList(gestorContactos.getContactos()));
+            } catch (Exception e) {
+                mostrarAlerta("Error", e.getMessage());
+            }
         }
     }
 
@@ -153,16 +168,6 @@ public class InicioController {
         selectedBox.setValue("Nombre");
 
 
-        listaUsuarios.addAll(
-                new Usuario(null, LocalDate.of(1995, 5, 10), "juan@gmail.com", "123456789", "Pérez", "Juan"),
-                new Usuario(null, LocalDate.of(1988, 8, 25), "ana@hotmail.com", "987654321", "Gómez", "Ana"),
-                new Usuario(null, LocalDate.of(2000, 3, 14), "luis@outlook.com", "555888777", "Martínez", "Luis"),
-                new Usuario(null, LocalDate.of(1992, 12, 5), "carlos@yahoo.com", "777333999", "Fernández", "Carlos"),
-                new Usuario(null, LocalDate.of(1999, 7, 20), "maria@gmail.com", "666999111", "Rodríguez", "María"),
-                new Usuario(null, LocalDate.of(1985, 11, 30), "sofia@mail.com", "222333444", "López", "Sofía"),
-                new Usuario(null, LocalDate.of(1997, 9, 9), "david@correo.com", "111222333", "Hernández", "David")
-        );
-
 
         searchField.textProperty().addListener((observable, oldValue, newValue) -> filtrarTabla(newValue));
 
@@ -179,7 +184,7 @@ public class InicioController {
             return new javafx.beans.property.SimpleObjectProperty<>(imageView);
         });
 
-        tablaDeContenido.setItems(listaUsuarios);
+        tablaDeContenido.setItems(gestorContactos.getContactos());
 
 
         tablaDeContenido.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
@@ -197,6 +202,7 @@ public class InicioController {
                 }
             }
         });
+
     }
 
     private boolean validarCampos() {
@@ -230,26 +236,6 @@ public class InicioController {
 
         return true;
     }
-
-    private void filtrarTabla(String filtro) {
-        if (filtro == null || filtro.isEmpty()) {
-            tablaDeContenido.setItems(listaUsuarios);
-            return;
-        }
-
-        ObservableList<Usuario> listaFiltrada = FXCollections.observableArrayList();
-
-        for (Usuario usuario : listaUsuarios) {
-            if (selectedBox.getValue().equals("Nombre") && usuario.getNombre().toLowerCase().contains(filtro.toLowerCase())) {
-                listaFiltrada.add(usuario);
-            } else if (selectedBox.getValue().equals("Teléfono") && usuario.getTelefono().contains(filtro)) {
-                listaFiltrada.add(usuario);
-            }
-        }
-
-        tablaDeContenido.setItems(listaFiltrada);
-    }
-
     private void mostrarAlerta(String titulo, String mensaje) {
         Alert alerta = new Alert(Alert.AlertType.ERROR);
         alerta.setTitle(titulo);
@@ -266,4 +252,26 @@ public class InicioController {
         dateNacimiento.setValue(null);
         imgFotoPerfil.setImage(null);
     }
+
+    private void filtrarTabla(String filtro) {
+        if (filtro == null || filtro.isEmpty()) {
+            tablaDeContenido.setItems(gestorContactos.getContactos());
+            return;
+        }
+
+        ObservableList<Usuario> listaFiltrada = FXCollections.observableArrayList();
+
+        for (Usuario usuario : gestorContactos.getContactos()) {
+            if (selectedBox.getValue().equals("Nombre") && usuario.getNombre().toLowerCase().contains(filtro.toLowerCase())) {
+                listaFiltrada.add(usuario);
+            } else if (selectedBox.getValue().equals("Teléfono") && usuario.getTelefono().contains(filtro)) {
+                listaFiltrada.add(usuario);
+            }
+        }
+
+        tablaDeContenido.setItems(listaFiltrada);
+    }
 }
+
+
+
