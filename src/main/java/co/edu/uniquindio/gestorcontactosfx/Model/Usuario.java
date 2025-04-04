@@ -1,10 +1,11 @@
 package co.edu.uniquindio.gestorcontactosfx.Model;
 
-import javafx.stage.FileChooser;
-
-import java.io.File;
+import lombok.Getter;
+import lombok.Setter;
 import java.time.LocalDate;
 
+@Getter
+@Setter
 public class Usuario {
     private String nombre;
     private String apellido;
@@ -13,64 +14,56 @@ public class Usuario {
     private LocalDate fechaNacimiento;
     private String fotoPerfil;
 
-
-    public Usuario(String fotoPerfil, LocalDate fechaNacimiento, String email, String telefono, String apellido, String nombre) {
-        this.fotoPerfil = fotoPerfil;
-        this.fechaNacimiento = fechaNacimiento;
-        this.email = email;
-        this.telefono = telefono;
-        this.apellido = apellido;
-        this.nombre = nombre;
+    // Constructor privado para forzar el uso del Builder
+    private Usuario(Builder builder) {
+        this.nombre = builder.nombre;
+        this.apellido = builder.apellido;
+        this.telefono = builder.telefono;
+        this.email = builder.email;
+        this.fechaNacimiento = builder.fechaNacimiento;
+        this.fotoPerfil = builder.fotoPerfil;
     }
 
-    public String getNombre() {
-        return nombre;
+    // Clase interna Builder
+    public static class Builder {
+        private String nombre;
+        private String apellido;
+        private String telefono;
+        private String email;
+        private LocalDate fechaNacimiento;
+        private String fotoPerfil;
+
+        public Builder(String telefono) { // Parámetro obligatorio
+            this.telefono = telefono;
+        }
+
+        public Builder nombre(String nombre) {
+            this.nombre = nombre;
+            return this;
+        }
+
+        public Builder apellido(String apellido) {
+            this.apellido = apellido;
+            return this;
+        }
+
+        public Builder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public Builder fechaNacimiento(LocalDate fechaNacimiento) {
+            this.fechaNacimiento = fechaNacimiento;
+            return this;
+        }
+
+        public Builder fotoPerfil(String fotoPerfil) {
+            this.fotoPerfil = fotoPerfil;
+            return this;
+        }
+
+        public Usuario build() {
+            return new Usuario(this);
+        }
     }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public LocalDate getFechaNacimiento() {
-        return fechaNacimiento;
-    }
-
-    public void setFechaNacimiento(LocalDate fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
-    }
-
-    public String getFotoPerfil() {
-        return fotoPerfil;
-    }
-
-    public void setFotoPerfil(String fotoPerfil) {
-        this.fotoPerfil = fotoPerfil;
-    }
-
-
-
 }
